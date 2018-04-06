@@ -1,0 +1,10 @@
+{
+  "name": "express-with-react",
+  "version": "1.0.0",
+  "description": "",
+  
+  "scripts": {  
+    "build": "cd client && npm run build",
+    "server": "cd server && npm run dev"
+  }
+}
