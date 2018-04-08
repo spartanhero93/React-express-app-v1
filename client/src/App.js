@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import * as Styled from "./Styles/index";
 import axios from "axios";
-import Inventory from "./Components/Inventory";
+import Inventory from "./Components/Index";
 
 class App extends Component {
   state = {
-    inventory: [],
-    products: [],
+    allItems: [],
     isLoaded: false
   };
 
@@ -14,35 +13,29 @@ class App extends Component {
     this.callApi()
   }
 
-  callApi = async () => {
-    const inventoryPromise = axios("/inventory");
-    const productsPromise  = axios("/products");
-    const [inventory, products] = await Promise.all([inventoryPromise, productsPromise]);
-    this.setState(
-      { 
-        inventory: JSON.parse(inventory.data).inventory, 
-        products:  JSON.parse(products.data),
-        isLoaded: true 
-      }
-    );
-    // console.log(this.state.inventory);
-    // console.log(this.state.products);
+  callApi = () => {
+    Promise.all([
+      axios.get(`/inventory/`),
+      axios.get(`/products/`)
+    ])
+    .then(([inventory, products]) => {
+      [inventory, products] = [inventory.data.inventory, products.data]
+      let combinedArr = inventory.map(items_1 => {
+        return Object.assign(items_1, products.find(items_2 => {
+          return items_2 && items_1.name === items_2.name;
+        }))
+      })
+      this.setState({
+        allItems: combinedArr,
+        isLoaded: true
+      })
+    });
   };
 
   render() {
-    if(this.state.isLoaded === false) {
-      return <h1>Now Loading</h1>
-    } 
+    console.log(this.state.allItems);
     return (
-      <Styled.Wrapper>
-        <Styled.Table>
-          <div>
-              <h1>Current Inventory: </h1>
-              <Inventory inventory={this.state.inventory} products={this.state.products}/>
-          </div>
-          <input type="text"/>
-        </Styled.Table>
-      </Styled.Wrapper>
+          <Inventory inventory={this.state.allItems} isLoaded={this.state.isLoaded}/>
     );
   }
 }
