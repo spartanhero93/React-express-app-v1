@@ -1,13 +1,11 @@
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-         margin: 0 auto;
-         display: flex;
-         flex-direction: row;
-         justify-content: space-evenly;
-         padding: 5rem;
-         text-align: center;`;
+  display:flex;
+  justify-content:space-evenly;
+`;
 
-export const Table = styled.div`
-  
+export const WrapperSmall = styled.div`
+  display: flex;
+  padding: 0.3rem;
 `;

@@ -1,23 +1,26 @@
 import React from 'react'
 import styled from 'styled-components';
-import {Wrapper} from "../Styles/index";
+import { Wrapper, WrapperSmall } from "../Styles/index";
 
-const Inventory = props =>
-  props.isLoaded === false ? <h1>Loading...</h1>: 
-  <div>{props.inventory.map((item, index) => <Items key={index} item={item} />)}</div>
-
+const Inventory = props => {
+  if (props.isLoaded === false) {
+    return <h1>Loading...</h1>
+  } else if (props.data.length) {
+    return <div>{props.data.map((item, index) => <Items key={index} item={item} />)}</div>
+  } else if (props.data.name) {
+    return <Items item={props.data} />
+  } else {
+    return <h1>Your Current Search cannot be found! Try Again</h1>
+  }
+}
 const Items = props => {
   return (
-    <Wrapper>
+    <WrapperSmall>
       <div>Name: {props.item.name}</div>
       <div>Price: ${props.item.price}</div>
       <div>Quantity: {props.item.inventory}</div>
-    </Wrapper>
+    </WrapperSmall>
   )
 }
-
-//<==== Styling ====>//
-const Box = styled.div`
-`;
 
 export default Inventory;
