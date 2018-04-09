@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const Body = styled.div`
-  
   width: 100vw;
   height: 100vh;
 `;
@@ -22,7 +21,7 @@ export const WrapperSmall = styled.div`
   padding: 0.3rem;
   border: 3px solid;
   transition: all 0.2s;
-  
+
   &:hover {
     background-color: grey;
   }
