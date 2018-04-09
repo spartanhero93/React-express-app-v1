@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from "axios";
-import { Wrapper } from "./Styles/index";
-import Inventory from "./Components/Index"
+import { Wrapper, Button, Body, Input} from "./Styles/index";
+import Inventory from "./Components/Inventory"
 
 class App extends Component {
   state = {
@@ -33,14 +33,16 @@ class App extends Component {
   render() {
     console.log(this.state.data)
     return (
+      <Body>
       <Wrapper>
         <div>
           <h1>Searching: {this.state.text}</h1>
-          <input type="text" name="name" value={this.state.text} onChange={this.handleChange} />
-          <button onClick={this.handleSubmit}>Search Items</button>
+          <Input type="text" name="name" value={this.state.text} onChange={this.handleChange} />
+          <Button onClick={this.handleSubmit}>Search Items</Button>
         </div>
         <Inventory isLoaded={this.state.isLoaded} data={this.state.data} />
       </Wrapper>
+      </Body>
     )
   }
 }
