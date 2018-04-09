@@ -25,7 +25,7 @@ class App extends Component {
   handleSubmit = event => {
     axios.get(`/getItems/${this.state.text}`)
     .then(res => {
-      this.setState({ data: res.data })
+      this.setState({ data: res.data, })
     })
   }
 
@@ -35,7 +35,7 @@ class App extends Component {
     return (
       <Wrapper>
         <div>
-          <h1>Current Search: {this.state.text}</h1>
+          <h1>Searching: {this.state.text}</h1>
           <input type="text" name="name" value={this.state.text} onChange={this.handleChange} />
           <button onClick={this.handleSubmit}>Search Items</button>
         </div>
